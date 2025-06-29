@@ -1,0 +1,61 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'application'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+application {
+	mainClass = 'com.example.IOT_HELL.IotHellApplication'  // แทนที่ด้วย Main class ของคุณ
+	applicationDefaultJvmArgs = ["--add-opens", "java.base/java.time.chrono=ALL-UNNAMED"]
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// ✅ Spring Boot Core Dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.6'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+
+
+	// ✅ JWT Authentication (ใช้ `jjwt` เวอร์ชัน 0.11.5 เท่านั้น)
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	// ✅ Firebase Admin SDK (ใช้เวอร์ชัน `9.2.0` เท่านั้น)
+	implementation 'com.google.firebase:firebase-admin:9.2.0'
+
+	// ✅ Lombok (ช่วยลด Boilerplate Code)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// ✅ Database (PostgreSQL)
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// ✅ DevTools (สำหรับพัฒนา)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// ✅ Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
